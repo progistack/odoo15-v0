@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="point_of_sale.template" xml:space="preserve">
+     <t t-name="customLoyalty" t-inherit="point_of_sale.ClientDetailsEdit" owl="1" t-inherit-mode="extension">
+        <xpath expr="//section[hasclass('client-details')]//input[@name='name']" position="after">
+           <div class="client-detail">
+               <span class="label">Loyalty</span>
+               <input name="loyalty" t-att-value="props.partner.loyalty || ''"/>
+           </div>
+        </xpath>
+    </t>
+
+    <t t-name="customLoyaltyTable" t-inherit="point_of_sale.ClientListScreen" owl="1" t-inherit-mode="extension">
+         <xpath expr="//div[hasclass('clientlist-screen')]//div[hasclass('screen-content')]//section[hasclass('full-content')]//div[hasclass('client-window')]//div[hasclass('subwindow-container-fix')]//table[hasclass('client-list')]/thead/tr/th[last()]" position="after">
+            <th>Points</th>
+        </xpath>
+    </t>
+    <t t-name="customLoyaltySum" t-inherit="point_of_sale.OrderWidget" owl="1" t-inherit-mode="extension">
+         <xpath expr="//div[hasclass('order-container')]//div[hasclass('order')]//t[@t-else='']" position="after">
+            <div style="width:150px; length:100px; color:#32CD32;">
+                <span class="badge display-point"> </span>
+                <span class="value loyalty-operation"></span>
+                <br></br>
+                <span class="value loyalty-total"></span>
+                <span class="value">
+                    <t t-esc="props.total" />
+                </span>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

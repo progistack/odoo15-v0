@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="selectCustomerTemplate" xml:space="preserve">
+
+    <t t-name="btn-select-client" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('clientlist-screen')]//div[hasclass('screen-content')]//div[hasclass('top-content')]//div[@t-if='isNextButtonVisible']"
+               position="replace">
+           <div t-if="isNextButtonVisible" t-on-click="clickNext1"
+                class="button next highlight select-client-btn">
+               <t t-if="!env.isMobile">
+                   <t t-esc="nextButton1.text"/>
+               </t>
+               <t t-else="">
+                   <i t-if="nextButton1.command === 'deselect'" class="fa fa-trash"/>
+                   <i t-elif="nextButton1.command === 'set'" class="fa fa-check"/>
+               </t>
+           </div>
+        </xpath>
+    </t>
+
+</templates>

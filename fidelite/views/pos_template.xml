@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pos_extend_assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/fidelite/static/src/js/reward_button.js"></script>
+            <script type="text/javascript" src="/fidelite/static/src/js/loyalty_field.js"></script>
+            <script type="text/javascript" src="/fidelite/static/src/js/save_user_info.js"></script>
+            <script type="text/javascript" src="/fidelite/static/src/js/models.js"></script>
+            <script type="text/javascript" src="/fidelite/static/src/js/loyalty_operation.js"></script>
+        </xpath>
+    </template>
+</odoo>

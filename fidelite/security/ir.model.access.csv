@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_programme_loyalty,programme.loyalty,model_programme_loyalty,,1,1,1,1
+access_loyalty_reward,loyalty.reward,model_loyalty_reward,,1,1,1,1

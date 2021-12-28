@@ -70,45 +70,63 @@ odoo.define('fidelite.RewardButton', function (require) {
                             console.log(">>>>>>>>>>>>>0000-----",userInfo);
                            });
                     }
-                if (userInfo.loyalty >= minimum_point){
+                if (userInfo.loyalty >= minimum_point ){
+                    if (this.env.pos.get_order().get_subtotal() >= amount_fexed){
 
-                    console.log("client....",this.env.pos.get_client().loyalty);
+                        console.log("client....",this.env.pos.get_client().loyalty);
 
-                    const { confirmed, payload} = await this.showPopup("SelectionPopup", {
-                           title: 'Veuillez sélectionner la récompense',
-                           list: rewardsList,
-                       });
-                    if (confirmed) {
+                        const { confirmed, payload} = await this.showPopup("SelectionPopup", {
+                               title: 'Veuillez sélectionner la récompense',
+                               list: rewardsList,
+                           });
+                        if (confirmed) {
 
-                        const products = this.env.pos.db.product_by_barcode;
-                        const product = products['0123456789'];
-                        console.log('*******----------------<<<<<<<<<',product);
-                        if (product){
-                            product.lst_price = - amount_fexed;
-                            console.log('------->>>>>>>',(this.env.pos.get_order().get_subtotal() - amount_fexed));
-                            this.env.pos.get_order().add_product(product);
-                            userInfo.loyalty = userInfo.loyalty - minimum_point;
-                            console.log('----------typeof amount_fexed----------',typeof(amount_fexed));
-                            console.log('------->>>>>>>',(this.env.pos.get_order().get_subtotal()));
-                            //this.env.bus.on('save-customer', this, userInfo);
-                            const sub_total = this.env.pos.get_order().get_subtotal()  ;
-                            const existLoyalty = this.env.pos.user_point;
-                            console.log('----------typeof loyalty env----------',typeof(this.env.pos.user_point));
-                            $('.loyalty-operation').html( '<span> Points </br>'+'+' + sub_total+' </br> </span>'+'<span> '+'-' + minimum_point+' </br> </span>');
-                            let allPoint = this.env.pos.user_point - minimum_point;
-                            this.env.pos.user_point = allPoint ;
-                            console.log('----------typeof loyalty----------',typeof(this.env.pos.user_point));
-                            $('.loyalty-total').html('Total: '+allPoint);
-                            $(".cadre-point").css({"background-color": "#35717B"});
-                            this.env.pos.user_point_validate_payment = this.env.pos.user_point_validate_payment - minimum_point;
-                            console.log('----------typeof loyalty----------',typeof(this.env.pos.user_point_validate_payment));
-                            this.env.pos.remiseAdd = true;
-                            this.env.pos.remiseAjoute = 100
-                            console.log('---------1000-------',allPoint);
-                            console.log('this....pos-----------',this.env.pos);
+                            const products = this.env.pos.db.product_by_barcode;
+                            const product = products['0123456789'];
+                            console.log('*******----------------<<<<<<<<<',product);
+                            if (product){
+                                product.lst_price = - amount_fexed;
+                                console.log('------->>>>>>>',(this.env.pos.get_order().get_subtotal() - amount_fexed));
+                                this.env.pos.get_order().add_product(product);
+                                userInfo.loyalty = userInfo.loyalty - minimum_point;
+                                console.log('----------typeof amount_fexed----------',typeof(amount_fexed));
+                                console.log('------->>>>>>>',(this.env.pos.get_order().get_subtotal()));
+                                //this.env.bus.on('save-customer', this, userInfo);
+                                const sub_total = this.env.pos.get_order().get_subtotal()  ;
+                                const existLoyalty = this.env.pos.user_point;
+                                let allPoint = userInfo.loyalty + sub_total;
+                                this.env.pos.user_point = allPoint;
+                                console.log('----------typeof loyalty env----------',(this.env.pos.user_point));
+
+                                setTimeout(
+                                  function()
+                                  {
+                                      $('.loyalty-operation').html( '<span> Points </br>'+'+' + sub_total+' </br> </span>'+'<span> '+'-' + minimum_point+'</span>');
+                                      $('.loyalty-total').html('Total: '+ allPoint);
+                                      $(".cadre-point").css({"background-color": "#35717B"});
+                                  }, 50);
+
+
+                                this.env.pos.user_point_validate_payment = this.env.pos.user_point_validate_payment - minimum_point;
+                                console.log('----------typeof loyalty----------',typeof(this.env.pos.user_point_validate_payment));
+                                this.env.pos.remiseAdd = true;
+                                this.env.pos.remiseAjoute = 100
+                                console.log('---------1000-------',allPoint);
+                                console.log('this....pos-----------',this.env.pos);
+                                product.lst_price = 0;
+                                console.log('----------typeof loyalty env----------',(this.env.pos.user_point));
+                            }
+
                         }
+                      }else{
 
-                    }
+                            var self = this;
+                            const { confirmed, payload } = await this.showPopup('ErrorPopup', {
+                            title: this.env._t('Pas de récompense disponible'),
+                            body: this.env._t("le montant de l'achat doit être superieur ou égal au prix de la remise"),
+                            });
+
+                      }
                 }else{
                     var self = this;
                     const { confirmed, payload } = await this.showPopup('ErrorPopup', {

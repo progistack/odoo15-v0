@@ -9,14 +9,6 @@ odoo.define('fidelite.SelectCustomer', function(require){
         class extends ClientListScreen{
             constructor() {
                 super(...arguments);
-                useListener('save-changes', this.text);
-                useListener('click-edit', this.text);
-                }
-
-                text(){
-                    $(".next").click(function(){
-                    alert("kissi-----------kisi")
-                });
                 }
 
                 changeColor(){
@@ -27,21 +19,22 @@ odoo.define('fidelite.SelectCustomer', function(require){
                                 $('.control-button-reward').css('background-color','#AACE3A');
                             }
 
+                        }else{
+                            $('.control-button-reward').css('background-color','');
                         }
                     }
                 }
                 get nextButton1() {
                     if (!this.props.client) {
-                        return { command: 'set', text: this.env._t('Set Customer kissi') };
+                        return { command: 'set', text: this.env._t('Set Customer') };
                     } else if (this.props.client && this.props.client === this.state.selectedClient) {
-                        return { command: 'deselect', text: this.env._t('Deselect Customer kissi') };
+                        return { command: 'deselect', text: this.env._t('Deselect Customer') };
                     } else {
-                        return { command: 'set', text: this.env._t('Change Customer kissi') };
+                        return { command: 'set', text: this.env._t('Change Customer') };
                     }
                 }
 
                 clickNext1() {
-                    console.log('kissi ------------------22');
                     this.state.selectedClient = this.nextButton1.command === 'set' ? this.state.selectedClient : null;
                     this.confirm();
                     this.clientPoints();
@@ -64,7 +57,7 @@ odoo.define('fidelite.SelectCustomer', function(require){
                             console.log('attributes ******************',point);
                             const subtotal = this.env.pos.get_order().get_subtotal()
                             $('.loyalty-operation').html( '<span> Points </br>'+'+' + subtotal +'</span>');
-                            const total = subtotal + point
+                            const total = Math.round(subtotal + point);
                             $('.loyalty-total').html('Total : '+total);
                             $(".cadre-point").css({"background-color": "#35717B"});
                             this.env.pos.user_point = total

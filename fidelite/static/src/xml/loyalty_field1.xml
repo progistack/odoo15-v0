@@ -7,7 +7,7 @@
                 <span class="label">Loyalty</span>
                 <input class="detail client-loyalty" name="loyalty"
                        t-on-change="captureChange" t-att-value="props.partner.loyalty || 0"
-                       placeholder="0" readonly=" readonly "/>
+                       placeholder="0"/>
             </div>
         </xpath>
     </t>

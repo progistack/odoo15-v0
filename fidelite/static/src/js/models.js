@@ -10,6 +10,7 @@ odoo.define('fidelite.models', function (require) {
         loaded: function(self,result){
             self.rewards=[{}]
             self.user_point = 0
+            self.orderTotal = 0
             self.user_point_validate_payment = 0
             self.remiseAdd = false
             self.remiseAjoute =0

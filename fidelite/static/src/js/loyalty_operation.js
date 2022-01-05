@@ -1,5 +1,5 @@
 odoo.define('fidelite.LoyaltyOperation', function (require) {
-"use strict";
+    "use strict";
 
     const { posbus } = require('point_of_sale.utils');
     const ProductScreen = require('point_of_sale.ProductScreen');
@@ -21,8 +21,11 @@ odoo.define('fidelite.LoyaltyOperation', function (require) {
                 useListener('update-selected-orderline', this.addPointUpdateOrderLine);
                 useListener('new-orderline-selected', this.add_point_click_product);
                 useListener('click-pay', this.add_point_click_product);
-                //useBarcodeReader({'point': this.add_point_click_product });
+                useBarcodeReader({
+                product: this.add_point_click_product,
+                })
             }
+
             add_point() {
                 const userInfo = this.env.pos.get_client()
                 if (userInfo){
@@ -144,8 +147,9 @@ odoo.define('fidelite.LoyaltyOperation', function (require) {
             }
 
             addPointUpdateOrderLine(){
-                 const userInfo = this.env.pos.get_client();
-                 let rewards = this.env.pos.rewards;
+                console.log('update ---------- update -----------')
+                const userInfo = this.env.pos.get_client();
+                let rewards = this.env.pos.rewards;
                 if (userInfo){
                     const rewardsList=[];
                     let minimum_point = 0;
@@ -220,7 +224,6 @@ odoo.define('fidelite.LoyaltyOperation', function (require) {
 
             }
         }
-
         /* gestion du click avec jquery
         $(".next").click(function(){
                     alert("kissi-----------kisi")

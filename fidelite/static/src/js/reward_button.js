@@ -13,11 +13,13 @@ odoo.define('fidelite.RewardButton', function (require) {
            super(...arguments);
            useListener('click', this.onClick);
 
+
        }
        is_available() {
            const order = this.env.pos.get_order();
            return order
        }
+
     //prix total
         total_price() {
             const articles = this.env.pos.get_order().orderlines.models;

@@ -38,7 +38,7 @@
             'fidelite/static/src/js/select_customer.js',
             'fidelite/static/src/js/ticket_screen_point.js',
             'fidelite/static/src/js/quotation_order.js',
-            'fidelite/static/src/js/quatation_order_select.js'
+            'fidelite/static/src/js/quatation_order_select.js',
         ],
         'web.assets_qweb': [
             'fidelite/static/src/xml/reward_button.xml',

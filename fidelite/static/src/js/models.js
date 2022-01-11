@@ -13,6 +13,7 @@ odoo.define('fidelite.models', function (require) {
             self.orderTotal = 0
             self.user_point_validate_payment = 0
             self.remiseAdd = false
+            self.ticket_min_point =0
             self.remiseAjoute =0
             if(result.length){
                 console.log("bonjour >>>>>>>>>>>>>>>>>>>>>>>>>>",result)
@@ -25,7 +26,8 @@ odoo.define('fidelite.models', function (require) {
                     id: value.id,
                     name: value.name,
                     minimum_point: value.minimum_point,
-                    amount_fexed: value.amount_fexed
+                    amount_fexed: value.amount_fexed,
+                    cost_reward: value.cost_reward
                     })
                     console.log('<<<<<<<<<<<<<<<<<<<',self.rewards)
 

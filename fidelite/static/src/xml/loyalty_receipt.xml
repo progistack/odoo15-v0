@@ -11,26 +11,26 @@
                         <t t-esc='receipt.client.name' class="pos-receipt-right-align"/>
                     </span>
                     <br></br>
-                    <span style="margin-top:20px;">
-                        Points gagnés: <t t-esc='receipt.subtotal' class="pos-receipt-right-align"/>
+                    <span style="margin-top:25px;">
+                        Points gagnés:<span class="pos-receipt-right-align"> <t t-esc='receipt.subtotal'/></span>
                     </span>
                     <br></br>
                     <span style="margin-top:8px;">
                         <p t-if="env.pos.remiseAjoute==100">
-                            précédent solde de points: <t t-esc='((receipt.client.loyalty + 100000) - receipt.subtotal)' class="pos-receipt-right-align"/>
+                            précédent solde de points:<span class="pos-receipt-right-align"> <t t-esc='((receipt.client.loyalty + 100000) - receipt.subtotal)'/></span>
                         </p>
                         <p t-else="env.pos.remiseAjoute!=100">
-                            précédent solde de points: <t t-esc='(receipt.client.loyalty - receipt.subtotal)' class="pos-receipt-right-align"/>
+                            précédent solde de points:<span class="pos-receipt-right-align"> <t t-esc='(receipt.client.loyalty - receipt.subtotal)'/></span>
                         </p>
                     </span>
                     <span style="margin-top:8px;">
                         <t t-if="env.pos.remiseAjoute==100">
-                            Points dépensés: 100000
+                            Points dépensés:<span class="pos-receipt-right-align"><t t-esc='env.pos.ticket_min_point'/></span>
                             <br></br>
                         </t>
                     </span>
-                    <span style="margin-top:8px;">
-                        Nouveau solde de points: <t t-esc='receipt.client.loyalty' class="pos-receipt-right-align"/>
+                    <span style="margin-top:18px;">
+                        Nouveau solde de points:<span class="pos-receipt-right-align"> <t t-esc='receipt.client.loyalty' class="pos-receipt-right-align"/></span>
                     </span>
                 </div>
             </t>

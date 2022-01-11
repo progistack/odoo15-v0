@@ -47,6 +47,7 @@
             'fidelite/static/src/xml/loyalty_receipt.xml',
             'fidelite/static/src/xml/select_customer.xml',
             'fidelite/static/src/xml/override_back_btn.xml',
+            'fidelite/static/src/xml/payment_screen.xml',
 
         ]
     },

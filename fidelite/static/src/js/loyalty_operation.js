@@ -137,8 +137,25 @@ odoo.define('fidelite.LoyaltyOperation', function (require) {
 
             changeColor(){
                 const userInfo = this.env.pos.get_client();
+                let rewards = this.env.pos.rewards;
                 if (userInfo){
-                    if(userInfo.loyalty >= 100000){
+                    let minimum_point = 0;
+                    let amount_fexed = 0;
+                    let cost_reward = 0;
+                    const rewardsList=[];
+                    if (rewards) {
+                        _.each(rewards, function(reward){
+                             rewardsList.push({
+                                  id:	reward.id,
+                                  label: reward.name,
+                              });
+
+                              minimum_point = reward.minimum_point;
+                              amount_fexed = reward.amount_fexed;
+                              cost_reward = reward.cost_reward ;
+                              });
+                    }
+                    if(userInfo.loyalty >= minimum_point){
                         $('.control-button-reward').css('background-color','#AACE3A');
                     }else{
                         $('.control-button-reward').css('background-color','');

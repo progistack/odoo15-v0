@@ -59,6 +59,7 @@ odoo.define('fidelite.RewardButton', function (require) {
             if(userInfo){
                 let minimum_point = 0;
                 let amount_fexed = 0;
+                let cost_reward = 0;
                 const rewardsList=[];
                 if (rewards) {
                       _.each(rewards, function(reward){
@@ -69,6 +70,7 @@ odoo.define('fidelite.RewardButton', function (require) {
 
                             minimum_point = reward.minimum_point;
                             amount_fexed = reward.amount_fexed;
+                            cost_reward = reward.cost_reward ;
                             console.log(">>>>>>>>>>>>>0000-----",userInfo);
                            });
                     }
@@ -90,7 +92,7 @@ odoo.define('fidelite.RewardButton', function (require) {
                                 product.lst_price = - amount_fexed;
                                 console.log('------->>>>>>>',(this.env.pos.get_order().get_subtotal() - amount_fexed));
                                 this.env.pos.get_order().add_product(product);
-                                userInfo.loyalty = userInfo.loyalty - minimum_point;
+                                userInfo.loyalty = userInfo.loyalty - cost_reward;
                                 console.log('----------typeof amount_fexed----------',typeof(amount_fexed));
                                 console.log('------->>>>>>>',(this.env.pos.get_order().get_subtotal()));
                                 //this.env.bus.on('save-customer', this, userInfo);
@@ -103,7 +105,7 @@ odoo.define('fidelite.RewardButton', function (require) {
                                 setTimeout(
                                   function()
                                   {
-                                      $('.loyalty-operation').html( '<span> Points </br>'+'+' + sub_total+' </br> </span>'+'<span> '+'-' + minimum_point+'</span>');
+                                      $('.loyalty-operation').html( '<span> Points </br>'+'+' + sub_total+' </br> </span>'+'<span> '+'-' + cost_reward+'</span>');
                                       $('.loyalty-total').html('Total: '+ allPoint);
                                       $(".cadre-point").css({"background-color": "#35717B"});
                                   }, 50);
@@ -112,6 +114,7 @@ odoo.define('fidelite.RewardButton', function (require) {
                                 this.env.pos.user_point_validate_payment = this.env.pos.user_point_validate_payment - minimum_point;
                                 console.log('----------typeof loyalty----------',typeof(this.env.pos.user_point_validate_payment));
                                 this.env.pos.remiseAdd = true;
+                                this.env.pos.ticket_min_point = cost_reward;
                                 this.env.pos.remiseAjoute = 100
                                 console.log('---------1000-------',allPoint);
                                 console.log('this....pos-----------',this.env.pos);

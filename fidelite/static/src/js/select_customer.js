@@ -12,9 +12,26 @@ odoo.define('fidelite.SelectCustomer', function(require){
                 }
 
                 changeColor(){
+                    let rewards = this.env.pos.rewards;
                     const userInfo = this.state.selectedClient;
                     if (userInfo){
-                        if(userInfo.loyalty >= 100000){
+                        let minimum_point = 0;
+                        let amount_fexed = 0;
+                        let cost_reward = 0;
+                        const rewardsList=[];
+                        if (rewards) {
+                              _.each(rewards, function(reward){
+                                    rewardsList.push({
+                                        id:	reward.id,
+                                        label: reward.name,
+                                    });
+
+                                    minimum_point = reward.minimum_point;
+                                    amount_fexed = reward.amount_fexed;
+                                    cost_reward = reward.cost_reward ;
+                                   });
+                            }
+                        if(userInfo.loyalty >= minimum_point){
                             if(this.env.pos.get_order().get_selected_orderline()){
                                 $('.control-button-reward').css('background-color','#AACE3A');
                             }

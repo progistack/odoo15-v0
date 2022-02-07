@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="car_sequence" model="ir.sequence">
+        <field name="name">DGA</field>
+        <field name="code">office.sequence</field>
+        <field name="prefix">CAI</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_office_manager_tree" model="ir.ui.view">
+        <field name="name">office.manager.tree</field>
+        <field name="model">office.manager</field>
+        <field name="arch" type="xml">
+            <tree string="Listes">
+                <field name="create_date" width="1"/>
+                <field name="libele" width="2"/>
+                <field name="num_facture" width="1"/>
+                <field name="nature_payment" width="1"/>
+                <field name="payment_with" width="1" invisible="1"/>
+                <field name="payment_with_employee" width="1" attrs="{'invisible':[('payment_with','!=','employee')]}"/>
+                <field name="payment_with_other" width="1" attrs="{'invisible':[('payment_with','=','employee')]}"/>
+                <field name="beneficiaire" width="1"/>
+                <field name="check_in_out" width="1"/>
+                <field name="somme" width="1"/>
+                <field name="chantier_id" width="1"/>
+                <field name="update" width="1"/>
+                <field name="update_by" width="1"/>
+                <field name="visibility" width="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_office_manager_form" model="ir.ui.view">
+        <field name="name">office.manager.form</field>
+        <field name="model">office.manager</field>
+        <field name="arch" type="xml">
+            <form>
+                <header style="margin-top:25px;">
+                    <button name="create_enter" type="object" string="Créer une entrée" class="oe_highlight" />
+                    <button name="create_out" style="margin-right:20px;"  type="object" string="Créer une sortie" class="oe_highlight" />
+                    <button name="return_list" style="margin-right:20px;"  type="object" string="Retour" class="btn btn-info" />
+
+                </header>
+                <sheet>
+                        <group>
+                            <group>
+                                <field name="create_date"/>
+                                <field name="libele"/>
+                                <field name="num_facture"/>
+                                <field name="name" readonly="1" attrs="{'invisible':[('etat','!=',True)]}"/>
+                            </group>
+                            <group>
+                                <field name="nature_payment"/>
+                                <field name="payment_with"/>
+                                <field name="payment_with_employee" attrs="{'invisible':[('payment_with','!=','employee')]}"/>
+                                <field name="payment_with_other" attrs="{'invisible':[('payment_with','=','employee')]}"/>
+                                <field name="beneficiaire" require="1"/>
+                            </group>
+                            <group>
+                                <field name="check_in_out"/>
+                                <field name="somme"/>
+                                <field name="visibility" widget="radio"/>
+                            </group>
+                            <group style="margin-top:15px;">
+                                <field name="chantier_id"/>
+                                <field name="update"/>
+                                <field name="update_by"/>
+                                <field name="etat" invisible="1"/>
+                            </group>
+                        </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_office_manager_tree_action" model="ir.actions.act_window">
+        <field name="name">Caisse Office manager</field>
+        <field name="res_model">office.manager</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">inline</field>
+        <field name="view_id" ref="view_agentis_dga_tree"/>
+    </record>
+
+    <menuitem id="agentis.menu_account_caisse_office_manager_dga" name="Caisse Office Manager " parent="agentis.menu_account_caisse" sequence="2"
+               action="view_office_manager_tree_action"/>
+
+</odoo>

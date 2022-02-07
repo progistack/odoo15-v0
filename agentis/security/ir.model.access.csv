@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_agentis1,access.agentis.table,model_agentis_table,,1,1,1,1
+access_agentis2,access.agentis.dga,model_agentis_dga,,1,1,1,1
+access_agentis3,access.office.manager,model_office_manager,,1,1,1,1
+access_agentis4,access.agentis.chantier,model_agentis_chantier,,1,1,1,1

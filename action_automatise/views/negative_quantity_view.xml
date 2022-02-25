@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_liste_article_epuise_tree" model="ir.ui.view">
+        <field name="name">listes.articles.tree</field>
+        <field name="model">negative.quantity</field>
+        <field name="arch" type="xml">
+            <tree string="Listes des articles épuisés" editable="bottom">
+                <field name="product_id" width="1.6"/>
+                <field name="location_id" string="Emplacement" width="1.6"/>
+                <field name="quantity" string="Quantié" width="1.6"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="automatise_action_action" model="ir.actions.act_window">
+        <field name="name">Listes des articles épuisés</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">negative.quantity</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_negative_quantity" name="Liste des article epuisés" parent="stock.menu_stock_inventory_control"
+              sequence="3" action="automatise_action_action"/>
+
+</odoo>

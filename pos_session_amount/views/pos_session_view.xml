@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="inherited_view_pos_session_tree" model="ir.ui.view">
+        <field name="name">inherited.pos.session.tree</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="/tree/field[@name='state']" position="after">
+                <field name="total" string="Total" width="1" readonly="1"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

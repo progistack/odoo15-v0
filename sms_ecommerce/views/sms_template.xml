@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+   <record id="mail_template_sale_confirmation" model="ir.ui.view"><!-- sms.template -->
+            <field name="name">Sales Order: Confirmation Email</field>
+            <field name="model_id" ref="sms_ecommerce.model_template_sms"/>
+            <field name="subject">{{ object.company_id.name }} {{ (object.get_portal_last_transaction().state == 'pending') and 'Pending Order' or 'Order' }} (Ref {{ object.name or 'n/a' }})</field>
+            <field name="email_from">{{ (object.user_id.phone) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                        Hello,
+                        <br/><br/>
+                        <t t-set="transaction" t-value="object.get_portal_last_transaction()"/>
+                        Your order <strong t-out="object.name or ''">S00049</strong> amounting in <strong t-out="format_amount(object.amount_total, object.currency_id) or ''">$ 10.00</strong>
+                        <t t-if="object.state == 'sale' or (transaction and transaction.state in ('done', 'authorized'))">
+                            has been confirmed.<br/>
+                            Thank you for your trust!
+                        </t>
+                        <t t-elif="transaction and transaction.state == 'pending'">
+                            is pending. It will be confirmed when the payment is received.
+                            <t t-if="object.reference">
+                                Your payment reference is <strong t-out="object.reference or ''"></strong>.
+                            </t>
+                        </t>
+                        <br/><br/>
+                        Do not hesitate to contact us if you have any questions.
+                        <br/><br/>
+                    </p>
+                </div>
+            </field>
+   </record>
+
+</odoo>

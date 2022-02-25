@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+	<record forcecreate="True" id="cron_negative_quantity" model="ir.cron">
+		<field name="name">Negative Quantity</field>
+		<field eval="True" name="active"/>
+		<field name="user_id" ref="base.user_admin"/>
+		<field name="interval_number">10</field>
+		<field name="interval_type">minutes</field>
+		<field name="numbercall">-1</field>
+		<field name="model_id" ref="action_automatise.model_negative_quantity"/>
+		<field name="state">code</field>
+		<field name="code">model.action_negative_quantity()</field>
+	</record>
+
+</odoo>
